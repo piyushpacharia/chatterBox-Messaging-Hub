@@ -1,9 +1,9 @@
-import { useContext, useRef } from "react";
+import { useContext, useEffect, useRef } from "react";
 import ChatContext from "../ChatContext";
 import { toast } from "react-toastify";
 
 export default function UserProfileCard() {
-  const { logout, user, BASE_URL, setUser, updateAboutInfo, setUserAbout } =
+  const { logout, user, BASE_URL, setUser, updateAboutInfo, setUserAbout,userAbout,fetchUserAbout } =
     useContext(ChatContext);
   const imageRef = useRef();
 
@@ -32,6 +32,11 @@ export default function UserProfileCard() {
       })
       .catch((err) => toast.error("Failed To Upload the file" + err.message));
   };
+  useEffect(()=>{
+    if(user){
+      fetchUserAbout();
+    }
+  },[user])
   return (
     <div className="card p-2 " style={{ width: "100%", borderRadius: 0 }}>
       <div className="row ">
@@ -67,7 +72,7 @@ export default function UserProfileCard() {
           </button>
         </div>
         <div className="d-flex justify-content-between align-items-center ">
-          <p style={{ fontFamily: "Quantico" }}>{user && user.About}</p>
+          <p style={{ fontFamily: "Quantico" }}>{userAbout}</p>
           <button
             type="button"
             className=""

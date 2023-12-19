@@ -280,7 +280,7 @@ export default function App() {
   };
 
   const fetchUserAbout = () => {
-    fetch(`${BASE_URL}/auth/get-user-about`, {
+    return fetch(`${BASE_URL}/auth/get-user-about`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -289,16 +289,18 @@ export default function App() {
     })
       .then((res) => res.json())
       .then((data) => {
-        if (data.success === true) {
+        if (data.success == true) {
           setUserAbout(data.message);
         } else {
           toast.error(data.message);
         }
+        return data; 
       })
       .catch((error) => {
         console.error("Error fetching user about info:", error);
       });
   };
+  
 
   // when user is coming first time so fetch pending and accepted requests
   useEffect(() => {

@@ -7,7 +7,7 @@ export default function ReceiverCard() {
   return (
     <div
       className=" p-2  "
-      style={{ backgroundColor: "#FAF9F6", borderRadius: "1rem" }}
+      style={{ backgroundColor: "#FAF9F6", borderRadius: "1rem" ,borderBottomRightRadius:0,borderBottomLeftRadius:0}}
     >
       <div className="row">
         <div className="col col-6 d-flex ">

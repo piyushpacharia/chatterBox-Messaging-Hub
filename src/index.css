@@ -1,0 +1,190 @@
+/* global */
+@import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
+
+li {
+    list-style: none;
+}
+
+a {
+    list-style-type: none;
+    text-decoration: none;
+    color: black;
+}
+
+/* global end */
+
+/* sidebar start */
+.wrapper {
+    display: flex;
+    width: 100%;
+}
+
+#sidebar {
+    max-width: 264px;
+    min-width: 264px;
+    transition: all 0.35s ease-in-out;
+    box-shadow: 0 0 35px 0 rgba(49, 57, 66, 0.5);
+    z-index: 1111;
+}
+
+#sidebar.collapsed {
+    margin-left: -264px;
+}
+
+.main {
+    min-height: 100vh;
+    width: 100%;
+    overflow: hidden;
+    transition: all 0.35s ease-in-out;
+}
+
+#sidebar {
+
+    padding: 5px;
+}
+
+/* sidebar end */
+
+/* button css */
+.glow-on-hover {
+
+    border: none;
+    outline: none;
+    color: #fff;
+    cursor: pointer;
+    position: relative;
+    z-index: 0;
+    border-radius: 10px;
+}
+
+.glow-on-hover:before {
+    content: '';
+    background: linear-gradient(45deg, #ff0000, #ff7300, #fffb00, #48ff00, #00ffd5, #002bff, #7a00ff, #ff00c8, #ff0000);
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    background-size: 400%;
+    z-index: -1;
+    filter: blur(5px);
+    width: calc(100% + 4px);
+    height: calc(100% + 4px);
+    animation: glowing 20s linear infinite;
+    opacity: 0;
+    transition: opacity .3s ease-in-out;
+    border-radius: 10px;
+}
+
+.glow-on-hover:hover:before {
+    opacity: 1;
+}
+
+.glow-on-hover:after {
+    z-index: -1;
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: white;
+    left: 0;
+    top: 0;
+    border-radius: 10px;
+}
+
+@keyframes glowing {
+    0% {
+        background-position: 0 0;
+    }
+
+    50% {
+        background-position: 400% 0;
+    }
+
+    100% {
+        background-position: 0 0;
+    }
+}
+
+.close {
+    background: none;
+    border: none;
+    color: white;
+    font-size: large;
+}
+
+.message-bar::-webkit-scrollbar {
+    width: 0;
+}
+
+.modal-backdrop {
+    z-index: -1;
+    display: none;
+}
+
+.modal-header {
+    background-color: darkmagenta;
+    color: rgb(7, 7, 7);
+}
+
+.modal-header {
+    color: white;
+}
+
+.receiver-card-name {
+    cursor: pointer;
+}
+
+.friend-card,
+.group-card {
+    cursor: pointer;
+}
+
+.left-side-bar {
+    height: 100%;
+    overflow: hidden;
+}
+
+.friend-box,
+.group-box {
+    border-bottom: 1px solid black;
+    height: 45%;
+    margin-top: 5px;
+    overflow: auto;
+    background-color: #efeeeb;
+    border-radius: 0.5rem;
+}
+
+.friend-box::-webkit-scrollbar,
+.group-box::-webkit-scrollbar {
+    width: 0;
+}
+
+.management-box {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    border: 1px solid black;
+    background-color: #FAF9F6;
+}
+
+.msg-btn {
+    background-color: darkmagenta;
+    color: white;
+}
+
+.friend-card:hover,
+.group-card:hover {
+    box-shadow: 2px 2px 2px 2px grey;
+}
+
+.friend-card:active,
+.group-card:active {
+    background-color: aliceblue;
+}
+
+/* Responsive */
+
+@media (min-width:768px) {
+    .content {
+        width: auto;
+    }
+}

@@ -10,7 +10,7 @@ import ForgetPassword from "./components/ForgetPassword";
 import ForgetPasswordInput from "./components/ForgetPasswordInput";
 import GroupMembers from "./components/GroupChat/GroupMembers";
 import io from "socket.io-client";
-const Endpoint =import.meta.env.ENDPOINT;
+const Endpoint =import.meta.env.VITE_ENDPOINT;
 var socket = io(Endpoint);
 
 export default function App() {

@@ -2,11 +2,19 @@ import { useContext, useState } from "react";
 import ChatContext from "../../ChatContext";
 import { Link } from "react-router-dom";
 import AddCard from "./AddCard";
+import { useRef } from "react";
 
 export default function ViewGroupModal() {
-  const { receiver, deleteGroup, acceptedRequests, user, AddGroupMembers } =
-    useContext(ChatContext);
+  const {
+    receiver,
+    deleteGroup,
+    acceptedRequests,
+    user,
+    AddGroupMembers,
+    imageUpload,
+  } = useContext(ChatContext);
   const [addMembers, setAddMembers] = useState([]);
+  const imageRef = useRef();
   // console.log(addMembers)
   return (
     <div>
@@ -35,7 +43,18 @@ export default function ViewGroupModal() {
             </div>
             <div className="modal-body ">
               <div className="border  d-flex justify-content-center">
+                <input
+                  type="file"
+                  onChange={(e) =>
+                    imageUpload(e.target.files[0], receiver.groupId)
+                  }
+                  ref={imageRef}
+                  style={{ display: "none" }}
+                  accept="image/png , image/jpeg , image/jpg"
+                />
+
                 <img
+                  onClick={() => imageRef.current.click()}
                   style={{ width: "20vw" }}
                   src={receiver && receiver.profilePic}
                   alt=""
@@ -62,25 +81,21 @@ export default function ViewGroupModal() {
                       {" "}
                       <i className="fa-solid fa-user-plus"></i>
                     </button>
-                    <button
-                      className="btn btn-lg"
-                     
-                    >
+                    <button className="btn btn-lg">
                       <Link to="/group-members">
                         <i className="fas fa-users "></i>
                       </Link>
                     </button>
-                   
-                      <button
-                        className="btn btn-danger btn-lg"
-                        data-bs-toggle="modal"
-                        data-bs-target="#deleteGroupModal"
-                      >
-                        {" "}
-                        <i className="fa-solid fa-trash "></i>
-                      </button>
-                    </div>
-                
+
+                    <button
+                      className="btn btn-danger btn-lg"
+                      data-bs-toggle="modal"
+                      data-bs-target="#deleteGroupModal"
+                    >
+                      {" "}
+                      <i className="fa-solid fa-trash "></i>
+                    </button>
+                  </div>
                 )}
               </div>
             </div>
@@ -88,7 +103,7 @@ export default function ViewGroupModal() {
         </div>
       </div>
 
-{/* add group member modal */}
+      {/* add group member modal */}
       <div
         className="modal fade"
         id="addMemberModal"
@@ -173,9 +188,9 @@ export default function ViewGroupModal() {
         </div>
       </div>
 
-{/* delete group Modal */}
+      {/* delete group Modal */}
 
-<div
+      <div
         className="modal fade"
         id="deleteGroupModal"
         tabIndex="-1"

@@ -10,7 +10,7 @@ import ForgetPassword from "./components/ForgetPassword";
 import ForgetPasswordInput from "./components/ForgetPasswordInput";
 import GroupMembers from "./components/GroupChat/GroupMembers";
 import io from "socket.io-client";
-const Endpoint = import.meta.env.VITE_ENDPOINT;
+const Endpoint = "http://localhost:8000";
 var socket = io(Endpoint);
 
 export default function App() {
@@ -26,6 +26,7 @@ export default function App() {
   const [groupMessages, setGroupMessages] = useState([]);
   const [searchResultsFriends, setSearchResultsFriends] = useState([]);
   const [searchResultsGroups, setSearchResultsGroups] = useState([]);
+  // const [groupProfileImage , setGroupProfilerImage] = useState("")
 
   const BASE_URL = import.meta.env.VITE_DATABASE_URL;
   const navigate = useNavigate();
@@ -446,6 +447,34 @@ export default function App() {
       });
   };
 
+  const imageUpload = (file, groupId) => {
+    const formData = new FormData();
+    formData.append("groupprofilepic", file);
+
+    fetch(`${BASE_URL}/group/upload-group-profilePic/${groupId}`, {
+      method: "POST",
+      headers: {
+        Authorization: user.token,
+      },
+      body: formData,
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.success) {
+          toast.success("Group profile picture uploaded successfully.");
+          fetchAllGroups();
+        } else {
+          toast.error(
+            data.message || "Failed to upload group profile picture."
+          );
+        }
+      })
+      .catch((error) => {
+        console.error("Error uploading group profile picture:", error);
+        toast.error("An error occurred while uploading group profile picture.");
+      });
+  };
+
   //handle groupChats
   const fetchGroupMessages = (groupId) => {
     fetch(`${BASE_URL}/group-messages/fetch-message/${groupId}`, {
@@ -458,7 +487,7 @@ export default function App() {
       .then((res) => res.json())
       .then((data) => {
         if (data.success == false) {
-         toast.error("cannot fetch");
+          toast.error("cannot fetch");
         } else {
           setGroupMessages(data.message);
         }
@@ -530,6 +559,7 @@ export default function App() {
       });
   };
 
+  // initializing sockets
   useEffect(() => {
     if (receiver && receiver.connectionId) {
       socket.emit("join-chat", receiver.connectionId);
@@ -658,6 +688,7 @@ export default function App() {
           searchFriendsAndGroups,
           searchResultsFriends,
           searchResultsGroups,
+          imageUpload,
         }}
       >
         <ToastContainer />

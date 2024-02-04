@@ -3,8 +3,16 @@ import ChatContext from "../ChatContext";
 import { toast } from "react-toastify";
 
 export default function UserProfileCard() {
-  const {  user, BASE_URL, setUser, updateAboutInfo, setUserAbout,userAbout,fetchUserAbout ,logout} =
-    useContext(ChatContext);
+  const {
+    user,
+    BASE_URL,
+    setUser,
+    updateAboutInfo,
+    setUserAbout,
+    userAbout,
+    fetchUserAbout,
+    logout,
+  } = useContext(ChatContext);
   const imageRef = useRef();
 
   const fileChange = (e) => {
@@ -32,55 +40,61 @@ export default function UserProfileCard() {
       })
       .catch((err) => toast.error("Failed To Upload the file" + err.message));
   };
-  useEffect(()=>{
-    if(user){
+  
+  useEffect(() => {
+    if (user) {
       fetchUserAbout();
     }
-  },[user])
+  }, [user]);
   return (
-    <div className=" d-flex text-center p-1 my-1 " style={{ width: "100%",borderBottom:" 1px solid black"}}>
-      <div className="" style={{width:"100%"}}>
+    <div
+      className=" d-flex text-center p-1 my-1 "
+      style={{ width: "100%", borderBottom: " 1px solid black" }}
+    >
+      <div className="" style={{ width: "100%" }}>
         <div className=" d-flex ">
           <input
             type="file"
             onChange={fileChange}
             ref={imageRef}
-            style={{ display: "none"  }}
+            style={{ display: "none" }}
             accept="image/png , image/jpeg , image/jpg"
-            
           />
           <img
             onClick={() => imageRef.current.click()}
             className="rounded-circle mt-1 "
-            style={{boxShadow:"1px 1px 3px 2px grey"}}
+            style={{ boxShadow: "1px 1px 3px 2px grey" }}
             width={60}
             height={60}
             src={user && user.profilePic}
           />
-          <div className="d-flex " style={{width:"100%"}}   >
-            <div style={{width:"100%"}}  >
+          <div className="d-flex " style={{ width: "100%" }}>
+            <div style={{ width: "100%" }}>
               <p
                 className="mx-2 mt-1  text-center"
                 style={{ fontFamily: "Quantico", fontSize: "large" }}
               >
-                {user && user.name} 
+                {user && user.name}
               </p>
             </div>
-            <div  >
-        <button
-          onClick={logout}
-          className="btn btn-sm btn-warning mt-2"
-          style={{float:"right"}}
-        >
-          <i className="fa fa-sign-out" aria-hidden="true"></i>
-        </button>
-      </div >
+            <div>
+              <button
+                onClick={logout}
+                className="btn btn-sm btn-warning mt-2"
+                style={{ float: "right" }}
+              >
+                <i className="fa fa-sign-out" aria-hidden="true"></i>
+              </button>
+            </div>
           </div>
         </div>
-       
+
         <div className="d-flex justify-content-between align-items-center mt-2">
           <div>
-          <p className="px-2" style={{ fontFamily: "Quantico"}}> <i className="fa-solid fa-circle-info"></i> : {userAbout}</p>
+            <p className="px-2" style={{ fontFamily: "Quantico" }}>
+              {" "}
+              <i className="fa-solid fa-circle-info"></i> : {userAbout}
+            </p>
           </div>
           <button
             type="button"

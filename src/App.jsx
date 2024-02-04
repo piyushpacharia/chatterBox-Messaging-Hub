@@ -10,7 +10,7 @@ import ForgetPassword from "./components/ForgetPassword";
 import ForgetPasswordInput from "./components/ForgetPasswordInput";
 import GroupMembers from "./components/GroupChat/GroupMembers";
 import io from "socket.io-client";
-const Endpoint = "http://localhost:8000";
+const Endpoint = process.env.ENDPOINT;
 var socket = io(Endpoint);
 
 export default function App() {
